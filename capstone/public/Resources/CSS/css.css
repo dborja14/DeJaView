@@ -1,0 +1,85 @@
+.bodbg{
+    background-image: url('/images/background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    opacity: 50%;
+    position: absolute;
+}
+
+.card.hide{
+    display:none !important;
+    visibility: hidden !important; 
+}
+.filter_buttons{
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.filter_buttons button{
+    border: 1px solid black;
+    padding: 1%;
+    border-radius: 6px;
+    background: #fff;
+}
+
+button.active{
+    background: #D2E0FB;
+    color: black;
+}
+
+
+.navbar-nav .active {
+    border: none;
+    border-bottom: 1px solid black;
+}
+
+.breadcrumb-item{
+    font-size:large;
+}
+
+.card-body i{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 50px;
+}
+.hh{
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.conc{
+    margin-bottom: 8px;
+    
+}
+
+.sizeee{
+    margin: 15px;
+}
+
+div.scroll-container {
+    max-height: 400px;
+    overflow: auto;
+    white-space: nowrap;
+    padding: 10px;
+  }
+  
+  div.scroll-container img {
+    padding: 10px;
+    max-height: 300px;
+  }
+
+
+.acctext{
+    font-style: normal;
+    margin-top: 15px;
+    font-size: 20px;
+}
+
+.tasks{
+    margin-top: 15px;
+}
