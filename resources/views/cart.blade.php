@@ -27,7 +27,7 @@
         You don't have products to check out.
     </div>
     @else
-    <form action="{{ route('checkout') }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('checkout') }}" method="post" enctype="multipart/form-data" onsubmit="handleFormSubmit(event)">
         @csrf
         <div class="row m-3">
 
@@ -256,10 +256,52 @@
         </div>
     </div>
 
+    <div class="modal fade" id="orderSuccessModal" tabindex="-1" aria-labelledby="orderSuccessLabel" aria-hidden="true"
+        data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content shadow-lg" style="border-radius: 15px;">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title text-center w-100" id="orderSuccessLabel">🎉 Order Placed Successfully!</h5>
+                </div>
+                <div class="modal-body text-center">
+                    <p class="fs-5">Thank you for your order! Your order has been placed successfully.</p>
+                    <p class="text-muted">Visit your account to check the status of your order.</p>
+                    <i class="bi bi-check-circle-fill text-success fs-1"></i>
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-primary w-100" data-bs-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
     @endif
 </div>
 
 <style>
+    body.modal-active {
+        backdrop-filter: blur(8px);
+        overflow: hidden;
+    }
+
+    .modal-content {
+        transform: scale(0.8);
+        opacity: 0;
+        transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+    }
+
+    .modal.fade.show .modal-content {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    .modal-content {
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+
     .submitButton {
         width: 100%;
         padding: 10px;
@@ -314,6 +356,7 @@
             gcashOption.style.display = "none";
         }
     }
+
     function showDeliveryMethod(select) {
         var option = select.value;
         var gcashOption = document.getElementById("deliveryOption");
@@ -366,5 +409,31 @@
             console.error(err);
         }
     }).render('#paypal-button-container'); // Display the PayPal button
+
+    function handleFormSubmit(event) {
+        event.preventDefault(); // Prevent immediate submission to show modal
+
+        // Show the success modal
+        const successModal = new bootstrap.Modal(document.getElementById('orderSuccessModal'), {
+            keyboard: false
+        });
+
+        successModal.show();
+
+        // Automatically submit the form after the modal is dismissed
+        const modalElement = document.getElementById('orderSuccessModal');
+        modalElement.addEventListener('hidden.bs.modal', () => {
+            // Submit the form programmatically
+            event.target.submit();
+        });
+
+        // Add background blur
+        document.body.classList.add('modal-active');
+
+        // Remove blur when the modal is hidden
+        modalElement.addEventListener('hidden.bs.modal', () => {
+            document.body.classList.remove('modal-active');
+        });
+    }
 </script>
 @endsection
